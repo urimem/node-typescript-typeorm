@@ -4,14 +4,16 @@ import { User } from "../entity/User";
 
 export class UsersService {
 
-    private userRepo:Repository<User>
+    private userRepo: Repository<User>
     
     constructor() {
         this.userRepo = AppDataSource.getRepository(User)
     }
 
     public async getAllUsers(): Promise<User[]> {
-        const users = await this.userRepo.find()
+        const users = await this.userRepo.find({
+            relations: { sentMessages: true }
+        })
         return users
     }
 

@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, Index, OneToOne, JoinColumn } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, Index, ManyToOne } from "typeorm"
 import { User } from "./User"
 
 @Entity()
@@ -10,12 +10,10 @@ export class Message {
     @Column("timestamp")
     sentAt: Date
 
-    @OneToOne(() => User)
-    @JoinColumn()
+    @ManyToOne(() => User, (user) => user.sentMessages)
     from: User
 
-    @OneToOne(() => User)
-    @JoinColumn()
+    @ManyToOne(() => User)
     to: User
 
     @Column({ length: 250 })

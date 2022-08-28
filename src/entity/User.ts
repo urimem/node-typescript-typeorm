@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, Index, OneToMany, ManyToMany } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, Index, OneToMany } from "typeorm"
 import { Message } from "./Message"
 
 @Entity()
@@ -20,4 +20,7 @@ export class User {
     @Index({ unique: false })
     @Column()
     active: boolean
+
+    @OneToMany(() => Message, (message) => message.from, { cascade: true })
+    sentMessages: Message[]
 }
