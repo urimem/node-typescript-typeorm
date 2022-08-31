@@ -10,9 +10,8 @@ export class MessagesService {
     }
 
     public async getUserMessages(userId: number): Promise<Message[]> {
-        const result = await this.messagesRepo.createQueryBuilder("message")
+        return this.messagesRepo.createQueryBuilder("message")
         .where("message.to = :id", { id: userId })
         .getMany()
-        return result
     }
 }
